@@ -12,17 +12,17 @@ const recastClient = new recast.Client(config.recast.token, config.recast.langua
 const header = {
   alg: 'HS256',
   typ: 'JWT',
-  kid: config.smooch.keyId
+  kid: config.smooch.keyId,
 }
 
 const payload = {
-  scope: 'app'
+  scope: 'app',
 }
 
 const jwtToken = jwt.sign(JSON.stringify(payload), config.smooch.secret, { header })
 
 app.use(bodyParser.urlencoded({
-  extended: true
+  extended: true,
 }))
 
 app.use(bodyParser.json())
@@ -44,7 +44,7 @@ const handleMessage = (message) => {
   .then((res) => {
     const replies = res.replies
     const action = res.action
-    
+
     if (!replies.length) {
       sendMessage('I didn\'t understand... Sorry :(', sender)
       return
@@ -63,7 +63,7 @@ const handleMessage = (message) => {
 
 // Message sending
 const sendMessage = (text, recipient) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const message = {
       role: 'appMaker',
       text,
@@ -72,7 +72,7 @@ const sendMessage = (text, recipient) => {
     .send(message)
     .set('content-type', 'application/json')
     .set('authorization', `Bearer ${jwtToken}`)
-    .end((err, res) => {
+    .end(() => {
       return resolve()
     })
   })
