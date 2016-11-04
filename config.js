@@ -1,6 +1,6 @@
 const config = {
     recast: {
-        token: '91f9255be83ad17be2e7a098d2069672',
+        token: 'Recast request token',
         language: 'en',
     },
     smooch: {
