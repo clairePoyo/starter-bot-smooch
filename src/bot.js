@@ -8,6 +8,7 @@ const recast = require('recastai')
 // POST requests Listening
 const app = express()
 const recastClient = new recast.Client(config.recast.token, config.recast.language)
+const jwtToken = ''
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -59,7 +60,7 @@ const sendMessage = (text, recipient) => {
     request.post(`https://api.smooch.io/v1/appusers/${recipient}/messages`)
     .send(message)
     .set('content-type', 'application/json')
-    .set('authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImFwcF81ODFiNjVjZjkxYmRjNDZmMDAwZmEyNjEifQ.eyJzY29wZSI6ImFwcCJ9.sX73gk9kAA_oSS3rjydvhgMYz5Fm5JKezotvJTUIndQ')
+    .set('authorization', `Bearer ${jwtToken}`)
     .end((err, res) => {
       return resolve()
     })
