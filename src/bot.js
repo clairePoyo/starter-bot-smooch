@@ -3,12 +3,23 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import request from 'superagent'
 import config from '../config'
+import jwt from 'jsonwebtoken'
 const recast = require('recastai')
 
 // POST requests Listening
 const app = express()
 const recastClient = new recast.Client(config.recast.token, config.recast.language)
-const jwtToken = ''
+const header = {
+  alg: 'HS256',
+  typ: 'JWT',
+  kid: config.smooch.keyId
+}
+
+const payload = {
+  scope: 'app'
+}
+
+const jwtToken = jwt.sign(JSON.stringify(payload), config.smooch.secret, { header })
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -33,7 +44,7 @@ const handleMessage = (message) => {
   .then((res) => {
     const replies = res.replies
     const action = res.action
-    console.log(replies)
+    
     if (!replies.length) {
       sendMessage('I didn\'t understand... Sorry :(', sender)
       return
