@@ -1,6 +1,6 @@
 {
   "name": "bot-smooch",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "main": "lib/server.js",
   "scripts": {
     "start": "node ./node_modules/babel-cli/bin/babel-node.js src/bot.js"
@@ -21,7 +21,7 @@
     "express": "^4.14.0",
     "jsonwebtoken": "^7.1.9",
     "lodash": "^4.13.1",
-    "recastai": "^2.3.0",
+    "recastai": "^3.1.1",
     "superagent": "^1.8.3"
   }
 }

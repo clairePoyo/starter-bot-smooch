@@ -111,7 +111,7 @@ const handleMessage = (message) => {
   // CALL TO RECAST.AI: 'sender' is a unique ID of your conversation with the user
   // The conversationToken is what lets Recast.AI identify your conversation.
   // As 'sender' is what identifies your conversation with the channel used, you can use it as conversationToken.
-  recastClient.textConverse(text, { conversationToken: sender })
+  client.request.converseText(text, { conversationToken: sender })
   .then((res) => {
     const replies = res.replies
     const action = res.action
@@ -133,9 +133,11 @@ const handleMessage = (message) => {
 }
 ```
 
-## Author
+## Authors
 
 Hugo Cherchi, hugo.cherchi@recast.ai
+
+Marian André, marian.andre@recast.ai
 
 You can follow us on Twitter at [@recastai](https://twitter.com/recastai) for updates and releases.
 

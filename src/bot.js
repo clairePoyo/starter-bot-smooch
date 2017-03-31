@@ -4,11 +4,11 @@ import bodyParser from 'body-parser'
 import request from 'superagent'
 import config from '../config'
 import jwt from 'jsonwebtoken'
-const recast = require('recastai')
+import recastai from 'recastai'
 
 // POST requests Listening
 const app = express()
-const recastClient = new recast.Client(config.recast.token, config.recast.language)
+const client = new recastai(config.recast.token, config.recast.language)
 const header = {
   alg: 'HS256',
   typ: 'JWT',
@@ -40,7 +40,7 @@ const handleMessage = (message) => {
   // CALL TO RECAST.AI: 'sender' is a unique ID of your conversation with the user
   // The conversationToken is what lets Recast.AI identify your conversation.
   // As 'sender' is what identifies your conversation with the channel used, you can use it as conversationToken.
-  recastClient.textConverse(text, { conversationToken: sender })
+  client.request.converseText(text, { conversationToken: sender })
   .then((res) => {
     const replies = res.replies
     const action = res.action
