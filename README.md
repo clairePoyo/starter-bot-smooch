@@ -1,9 +1,10 @@
 # Start coding your bot: Recast.AI + Smooch
 
 * This is a small Tutorial to show you how to integrate Smooch to a Recast.AI bot
-* If you have no idea of how to use Recast.AI I advise you to check this SDK first:  [Recast.AI-nodejs-SDK](https://github.com/RecastAI/SDK-NodeJs)
+* If you have no idea of how to use Recast.AI I advise you to check this SDK first: [Recast.AI-nodejs-SDK](https://github.com/RecastAI/SDK-NodeJs)
 
 ## Requirements
+
 * Create an account on [Recast.AI](https://recast.ai/signup)
 * Create an account on [Smooch](https://smooch.io)
 
@@ -33,7 +34,7 @@ Problem: the server will be running locally (no url) That’s why you will use n
 * run it with `./ngrok http 8080`
 * Keep the secured url (https). We need it later.
 
-	![Ngrok](https://github.com/RecastAI/Pokebot/raw/master/pictures/recast-ai-ngrok-console.png)
+      	![Ngrok](https://github.com/RecastAI/Pokebot/raw/master/pictures/recast-ai-ngrok-console.png)
 
 ## Launch the bot
 
@@ -48,18 +49,17 @@ git clone https://github.com/RecastAI/bot-smooch.git
 * Fill the config.js with your tokens from smooch.io and from recast.ai
 
 ```javascript
-const config =
-{
-	recast: {
-		token: 'Recast request token',
-		language: 'en',
-	},
-	smooch: {
-  	keyId: 'Smooch keyId',
-  	secret: 'Smooch secret',
+const config = {
+  recast: {
+    token: "Recast request token",
+    language: "en"
   },
-  port: 8080,
-}
+  smooch: {
+    keyId: "Smooch keyId",
+    secret: "Smooch secret"
+  },
+  port: 8080
+};
 ```
 
 #### Run
@@ -69,6 +69,7 @@ const config =
 ```
 cd bot-smooch
 ```
+
 ```
 npm install
 ```
@@ -104,33 +105,34 @@ Here is the heart of your bot. The following function is called every time your 
 For more information, please read the [SDK NodeJS documentation](https://github.com/RecastAI/SDK-NodeJS)
 
 ```javascript
-const handleMessage = (message) => {
-  const sender = message.messages[0].authorId
-  const text = message.messages[0].text
+const handleMessage = message => {
+  const sender = message.messages[0].authorId;
+  const text = message.messages[0].text;
 
   // CALL TO RECAST.AI: 'sender' is a unique ID of your conversation with the user
   // The conversationToken is what lets Recast.AI identify your conversation.
   // As 'sender' is what identifies your conversation with the channel used, you can use it as conversationToken.
-  client.request.converseText(text, { conversationToken: sender })
-  .then((res) => {
-    const replies = res.replies
-    const action = res.action
-    console.log(replies)
-    if (!replies.length) {
-      sendMessage('I didn\'t understand... Sorry :(', sender)
-      return
-    }
+  client.request
+    .converseText(text, { conversationToken: sender })
+    .then(res => {
+      const replies = res.replies;
+      const action = res.action;
+      console.log(replies);
+      if (!replies.length) {
+        sendMessage("I didn't understand... Sorry :(", sender);
+        return;
+      }
 
-    if (action && action.done) {
-      // Use external services: use res.memory('notion') if you got a notion from this action
-    }
+      if (action && action.done) {
+        // Use external services: use res.memory('notion') if you got a notion from this action
+      }
 
-    replies.forEach(reply => sendMessage(reply, sender))
-  })
-  .catch(() => {
-    sendMessage('I need some sleep right now... Talk to me later!', sender)
-  })
-}
+      replies.forEach(reply => sendMessage(reply, sender));
+    })
+    .catch(() => {
+      sendMessage("I need some sleep right now... Talk to me later!", sender);
+    });
+};
 ```
 
 ## Authors
@@ -143,7 +145,7 @@ You can follow us on Twitter at [@recastai](https://twitter.com/recastai) for up
 
 ## License
 
-Copyright (c) [2016] [Recast.AI](https://recast.ai)
+Copyright (c) [2016][recast.ai](https://recast.ai)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -162,3 +164,5 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+# bot_connector
